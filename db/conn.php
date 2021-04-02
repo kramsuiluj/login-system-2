@@ -1,5 +1,7 @@
 <?php 
 
+require_once 'user.php';
+
 $name = 'login-system';
 $host = 'localhost';
 $user = 'root';
@@ -12,5 +14,7 @@ try{
 }catch(PDOException $e){
     die('There was an error while connection to the database: ' . $e->getMessage());
 }
+
+$user = new User($pdo);
 
 ?>

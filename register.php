@@ -2,6 +2,7 @@
 
 require_once 'includes/template.php';
 require_once 'includes/regex.php';
+require_once 'db/conn.php';
 
 $notice = ['empty' => '', 'username' => '', 'email' => '', 'contact' => '', 'pass' => '', 'cpass' => ''];
 
@@ -38,6 +39,14 @@ if(isset($_POST['register'])){
         }
         if($icpass != $ipass){
             $notice['cpass'] = 'Password mismatch!';
+        }
+
+        if(empty($notice['username']) && empty($notice['email']) && empty($notice['contact']) && empty($notice['pass']) && empty($notice['cpass'])){
+            if($user->register($username, $email, $contact, $pass)){
+                echo 'Your data has been successfully registered to the database.';
+            }else{
+                echo 'There was an error while saving your data to the database.';
+            }
         }
     }
 }
